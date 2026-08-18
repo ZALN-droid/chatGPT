@@ -8,16 +8,30 @@
 
 <style>
 
+/* =====================================================
+   GENERAL
+===================================================== */
+
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     background: #212121;
+
     color: #ececec;
+
     height: 100vh;
+
     overflow: hidden;
 }
 
@@ -27,24 +41,39 @@ body {
 ===================================================== */
 
 .header {
+
     height: 60px;
+
     display: flex;
+
     align-items: center;
+
     padding: 0 22px;
+
     border-bottom: 1px solid #3a3a3a;
+
     background: #212121;
 }
 
+
 .header-logo {
+
     width: 32px;
+
     height: 32px;
+
     object-fit: contain;
+
     margin-right: 10px;
 }
 
+
 .title {
+
     font-size: 17px;
+
     font-weight: 600;
+
     color: #ececec;
 }
 
@@ -54,10 +83,15 @@ body {
 ===================================================== */
 
 .chat {
+
     position: absolute;
+
     top: 60px;
+
     bottom: 105px;
+
     left: 0;
+
     right: 0;
 
     overflow-y: auto;
@@ -67,21 +101,31 @@ body {
     scroll-behavior: smooth;
 }
 
+
 .chat::-webkit-scrollbar {
+
     width: 8px;
 }
 
+
 .chat::-webkit-scrollbar-track {
+
     background: #212121;
 }
 
+
 .chat::-webkit-scrollbar-thumb {
+
     background: #4a4a4a;
+
     border-radius: 10px;
 }
 
+
 .conversation {
+
     max-width: 900px;
+
     margin: auto;
 }
 
@@ -91,19 +135,31 @@ body {
 ===================================================== */
 
 .user-message {
+
     display: flex;
+
     justify-content: flex-end;
+
     margin-bottom: 30px;
 }
 
+
 .user-bubble {
+
     max-width: 75%;
+
     background: #303030;
+
     padding: 12px 18px;
+
     border-radius: 18px;
+
     font-size: 16px;
+
     line-height: 1.5;
+
     white-space: pre-wrap;
+
     color: #ececec;
 }
 
@@ -113,64 +169,102 @@ body {
 ===================================================== */
 
 .assistant-message {
+
     display: flex;
+
     align-items: flex-start;
+
     gap: 14px;
+
     margin-bottom: 45px;
 }
 
+
 .assistant-logo {
+
     flex-shrink: 0;
+
     width: 32px;
+
     height: 32px;
+
     object-fit: contain;
 }
 
+
 .response {
+
     font-size: 16px;
+
     line-height: 1.65;
+
     max-width: 820px;
+
     color: #ececec;
 }
 
 
 /* =====================================================
-   RESPONSE FORMATTING
+   RESPONSE HEADINGS
 ===================================================== */
 
 .response h1 {
+
     font-size: 22px;
+
     margin: 8px 0 18px;
+
     color: #ffffff;
 }
+
 
 .response h2 {
+
     font-size: 20px;
+
     margin: 25px 0 15px;
+
     color: #ffffff;
 }
+
 
 .response h3 {
+
     font-size: 18px;
+
     margin: 22px 0 12px;
+
     color: #ffffff;
 }
 
+
 .response p {
+
     margin: 0 0 16px;
 }
 
+
 .response strong {
+
     color: #ffffff;
 }
 
+
+/* =====================================================
+   LISTS
+===================================================== */
+
 .response ul,
 .response ol {
+
     margin: 8px 0 20px 25px;
+
     padding-left: 20px;
 }
 
+
 .response li {
+
     margin-bottom: 7px;
 }
 
@@ -180,8 +274,11 @@ body {
 ===================================================== */
 
 .table-wrapper {
+
     width: 100%;
+
     overflow-x: auto;
+
     margin: 18px 0 28px;
 
     border-radius: 10px;
@@ -189,8 +286,11 @@ body {
     scrollbar-width: thin;
 }
 
+
 .response table {
+
     width: 100%;
+
     border-collapse: collapse;
 
     background: #2a2a2a;
@@ -200,8 +300,11 @@ body {
     line-height: 1.45;
 }
 
+
 .response th {
+
     background: #3a3a3a;
+
     color: #ffffff;
 
     font-weight: 600;
@@ -215,7 +318,9 @@ body {
     white-space: nowrap;
 }
 
+
 .response td {
+
     padding: 9px 11px;
 
     border: 1px solid #484848;
@@ -225,7 +330,9 @@ body {
     vertical-align: top;
 }
 
+
 .response tr:nth-child(even) td {
+
     background: #303030;
 }
 
@@ -235,9 +342,11 @@ body {
 ===================================================== */
 
 .cursor {
+
     display: inline-block;
 
     width: 2px;
+
     height: 18px;
 
     background: #ececec;
@@ -248,6 +357,7 @@ body {
 
     animation: blink 0.8s infinite;
 }
+
 
 @keyframes blink {
 
@@ -267,6 +377,7 @@ body {
 ===================================================== */
 
 .input-container {
+
     position: fixed;
 
     bottom: 20px;
@@ -280,7 +391,9 @@ body {
     background: #212121;
 }
 
+
 .prompt-box {
+
     min-height: 58px;
 
     border: 1px solid #555;
@@ -295,15 +408,21 @@ body {
 
     background: #303030;
 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.25);
 }
 
+
 .plus {
+
     width: 35px;
+
     height: 35px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     font-size: 25px;
@@ -313,7 +432,9 @@ body {
     margin-right: 8px;
 }
 
+
 .prompt-text {
+
     flex: 1;
 
     font-size: 16px;
@@ -321,6 +442,7 @@ body {
     min-height: 25px;
 
     display: flex;
+
     align-items: center;
 
     white-space: pre-wrap;
@@ -328,8 +450,11 @@ body {
     color: #ececec;
 }
 
+
 .send {
+
     width: 38px;
+
     height: 38px;
 
     border-radius: 50%;
@@ -341,15 +466,20 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 18px;
+
     font-weight: bold;
 
-    transition: transform 0.15s ease;
+    transition:
+        transform 0.15s ease;
 }
 
+
 .send.clicked {
+
     transform: scale(0.85);
 }
 
@@ -359,6 +489,7 @@ body {
 ===================================================== */
 
 .start-screen {
+
     position: fixed;
 
     inset: 0;
@@ -368,12 +499,15 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     z-index: 100;
 }
 
+
 .start-button {
+
     padding: 14px 25px;
 
     border: none;
@@ -389,7 +523,9 @@ body {
     cursor: pointer;
 }
 
+
 .start-button:hover {
+
     background: #ffffff;
 }
 
@@ -399,6 +535,7 @@ body {
 ===================================================== */
 
 .next-button {
+
     display: none;
 
     position: fixed;
@@ -435,9 +572,15 @@ body {
      START SCREEN
 ===================================================== -->
 
-<div class="start-screen" id="startScreen">
+<div
+    class="start-screen"
+    id="startScreen"
+>
 
-    <button class="start-button" onclick="startDemo()">
+    <button
+        class="start-button"
+        onclick="startDemo()"
+    >
         Start
     </button>
 
@@ -467,7 +610,10 @@ body {
      CHAT
 ===================================================== -->
 
-<div class="chat" id="chat">
+<div
+    class="chat"
+    id="chat"
+>
 
     <div
         class="conversation"
@@ -513,7 +659,7 @@ body {
 
 
 <!-- =====================================================
-     NEXT QUESTION
+     CONTINUE BUTTON
 ===================================================== -->
 
 <button
@@ -530,23 +676,194 @@ body {
 
 /* =====================================================
    QUESTION 1
-   LEAVE YOUR EXISTING CONTENT HERE
 ===================================================== */
 
 const question1 = `
-YOUR FIRST QUESTION GOES HERE
+Generate a formulation for an intranasal dopamine loaded chitosan nanoparticle formulation.
 `;
+
 
 
 /* =====================================================
    RESPONSE 1
-   LEAVE YOUR EXISTING RESPONSE HERE
 ===================================================== */
 
 const response1 = `
-YOUR FIRST PRE-WRITTEN RESPONSE GOES HERE.
 
-Your existing Response 1 can stay exactly as it was.
+<p>
+If you mean a research/laboratory formulation, I can help design the formulation conceptually. However, an intranasal nanoparticle drug product is a pharmaceutical preparation, so I would not recommend using a homemade formulation in humans or animals without appropriate formulation development, sterility, toxicology, and institutional approval.
+</p>
+
+
+<h2>Proposed intranasal dopamine-loaded chitosan nanoparticle system</h2>
+
+
+<p>
+<strong>Objective:</strong> Encapsulate dopamine in a mucoadhesive chitosan nanoparticle system intended for intranasal delivery, with the goal of improving nasal residence time and potentially facilitating nose-to-brain transport.
+</p>
+
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Component</th>
+
+<th>Suggested role</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>Dopamine HCl</td>
+
+<td>Active pharmaceutical ingredient</td>
+
+</tr>
+
+
+<tr>
+
+<td>Low/medium molecular-weight chitosan</td>
+
+<td>Nanoparticle-forming polymer and mucoadhesive</td>
+
+</tr>
+
+
+<tr>
+
+<td>Sodium tripolyphosphate (TPP)</td>
+
+<td>Ionic crosslinker</td>
+
+</tr>
+
+
+<tr>
+
+<td>Acetic acid or another suitable acidic aqueous vehicle</td>
+
+<td>Dissolves/protonates chitosan</td>
+
+</tr>
+
+
+<tr>
+
+<td>Trehalose or mannitol</td>
+
+<td>Stabilizer/cryoprotectant if nanoparticles are dried</td>
+
+</tr>
+
+
+<tr>
+
+<td>Suitable isotonic buffer</td>
+
+<td>Nasal-compatible vehicle</td>
+
+</tr>
+
+
+<tr>
+
+<td>Purified water</td>
+
+<td>Solvent</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<h2>Formulation architecture</h2>
+
+
+<p>
+A reasonable starting research formulation would be:
+</p>
+
+
+<p>
+<strong>Dopamine HCl → chitosan/TPP nanoparticles → aqueous nasal dispersion</strong>
+</p>
+
+
+<p>
+The nanoparticles would generally be produced using ionic gelation, where protonated chitosan interacts electrostatically with TPP, forming nanoscale particles in which dopamine is incorporated during particle formation.
+</p>
+
+
+<p>
+For development, the important variables to optimize would include:
+</p>
+
+
+<ul>
+
+<li>Chitosan molecular weight and degree of deacetylation</li>
+
+<li>Chitosan:TPP ratio</li>
+
+<li>Dopamine:polymer ratio</li>
+
+<li>Particle size</li>
+
+<li>Polydispersity index</li>
+
+<li>Zeta potential</li>
+
+<li>Dopamine encapsulation efficiency</li>
+
+<li>Drug loading</li>
+
+<li>In-vitro dopamine release</li>
+
+<li>Nanoparticle stability</li>
+
+<li>Nasal mucoadhesion</li>
+
+<li>Osmolality and pH</li>
+
+<li>Nasal epithelial compatibility/cytotoxicity</li>
+
+<li>Microbiological quality</li>
+
+</ul>
+
+
+<h2>Target characteristics</h2>
+
+
+<p>
+For an experimental intranasal nanoparticle system, you would generally want a small, relatively uniform particle population, positive surface charge from chitosan, good encapsulation, controlled release, and a formulation whose pH and osmolality are compatible with nasal tissue.
+</p>
+
+
+<p>
+One important scientific issue is dopamine itself. Dopamine is readily metabolized and has limited ability to cross the blood-brain barrier, which is one reason the nose-to-brain route is being investigated. Encapsulation does not automatically demonstrate brain delivery, so an effective study needs pharmacokinetic and brain-distribution evidence rather than relying only on nanoparticle characterization.
+</p>
+
+
+<p>
+If this is for a pharmaceutical sciences research project, I can also lay out a complete <strong>QbD-style formulation development plan</strong>, including the independent variables, responses, characterization tests, experimental design, and an example formulation-development table, without presenting it as a clinically usable preparation.
+</p>
+
 `;
 
 
@@ -606,12 +923,7 @@ Once CMAs and CPPs are tabulated, generate an entire final formulation based on 
 const response2 = `
 
 <p>
-Below is a Quality by Design (QbD)-based framework for the development of a
-<strong>chitosan-based intranasal levodopa nanosystem</strong> intended for the
-treatment of Parkinson's disease (PD). The proposed Critical Material
-Attributes (CMAs) and Critical Process Parameters (CPPs) are linked to the
-established Quality Target Product Profile (QTPP) and Critical Quality
-Attributes (CQAs).
+Below is a Quality by Design (QbD)-based framework for the development of a <strong>chitosan-based intranasal levodopa nanosystem</strong> intended for the treatment of Parkinson's disease (PD). The proposed Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) are linked to the established Quality Target Product Profile (QTPP) and Critical Quality Attributes (CQAs).
 </p>
 
 
@@ -706,7 +1018,9 @@ Attributes (CQAs).
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
@@ -801,7 +1115,9 @@ Attributes (CQAs).
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
@@ -899,11 +1215,14 @@ Attributes (CQAs).
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
 <h2>4. Proposed Design Space</h2>
+
 
 <p>
 Based on literature for intranasal chitosan nanoparticles:
@@ -956,7 +1275,9 @@ Based on literature for intranasal chitosan nanoparticles:
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
@@ -964,16 +1285,24 @@ Based on literature for intranasal chitosan nanoparticles:
 Expected optimized region:
 </p>
 
+
 <ul>
+
 <li>Particle size: <strong>120–180 nm</strong></li>
+
 <li>Zeta potential: <strong>+18 to +28 mV</strong></li>
+
 <li>Entrapment efficiency: <strong>65–85%</strong></li>
+
 <li>Immediate drug release: <strong>&gt;70% within 1 h</strong></li>
+
 <li>Physical stability: <strong>≥3 months at 2–8°C</strong></li>
+
 </ul>
 
 
 <h2>5. Final Optimized Formulation (QbD-Based)</h2>
+
 
 <h3>Composition (100 mL Batch)</h3>
 
@@ -1037,7 +1366,9 @@ Expected optimized region:
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
@@ -1110,7 +1441,9 @@ Expected optimized region:
 </tr>
 
 </tbody>
+
 </table>
+
 </div>
 
 
@@ -1168,10 +1501,7 @@ Store at <strong>2–8°C</strong>.
 
 
 <p>
-This formulation and process are expected to consistently achieve the target
-CQAs (particle size 100–200 nm, zeta potential +20 to +30 mV, immediate
-release, and acceptable stability) while satisfying the defined QTPP for an
-intranasal levodopa nanosystem.
+This formulation and process are expected to consistently achieve the target CQAs (particle size 100–200 nm, zeta potential +20 to +30 mV, immediate release, and acceptable stability) while satisfying the defined QTPP for an intranasal levodopa nanosystem.
 </p>
 
 `;
@@ -1184,19 +1514,7 @@ intranasal levodopa nanosystem.
 
 const promptTypingSpeed = 25;
 
-/*
-   Response 1 keeps the old behaviour.
-*/
-const responseTypingSpeed = 8;
-
-/*
-   Response 2 uses a slightly longer delay
-   so the tables don't flash in too quickly.
-*/
-const formattedResponseSpeed = 18;
-
 const pauseBeforeResponse = 900;
-
 
 
 /* =====================================================
@@ -1213,9 +1531,8 @@ function startDemo() {
 }
 
 
-
 /* =====================================================
-   TYPE PLAIN TEXT
+   TYPE PROMPT
 ===================================================== */
 
 function typeText(
@@ -1238,20 +1555,27 @@ function typeText(
 
             autoScroll();
 
-            setTimeout(type, speed);
+            setTimeout(
+                type,
+                speed
+            );
 
-        } else {
+        }
+
+        else {
 
             if (callback) {
+
                 callback();
+
             }
 
         }
+
     }
 
     type();
 }
-
 
 
 /* =====================================================
@@ -1264,11 +1588,13 @@ function autoScroll() {
         document.getElementById("chat");
 
     chat.scrollTo({
+
         top: chat.scrollHeight,
+
         behavior: "smooth"
+
     });
 }
-
 
 
 /* =====================================================
@@ -1287,11 +1613,12 @@ function startQuestion(number) {
         ? response1
         : response2;
 
+
     const conversation =
-        document.getElementById("conversation");
+        document.getElementById(
+            "conversation"
+        );
 
-
-    /* Clear prompt */
 
     document.getElementById(
         "typingText"
@@ -1300,22 +1627,23 @@ function startQuestion(number) {
 
     document.getElementById(
         "cursor"
-    ).style.display = "inline-block";
+    ).style.display =
+        "inline-block";
 
 
     document.getElementById(
         "nextButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 
-
-    /* ==============================================
-       TYPE PROMPT
-    ============================================== */
+    /* TYPE USER PROMPT */
 
     typeText(
 
-        document.getElementById("typingText"),
+        document.getElementById(
+            "typingText"
+        ),
 
         prompt.trim(),
 
@@ -1323,195 +1651,117 @@ function startQuestion(number) {
 
         function() {
 
-            setTimeout(function() {
+            setTimeout(
 
-                /* Fake send button */
+                function() {
 
-                const send =
-                    document.getElementById(
-                        "sendButton"
-                    );
+                    /* Fake send */
 
-                send.classList.add("clicked");
+                    const send =
+                        document.getElementById(
+                            "sendButton"
+                        );
 
 
-                setTimeout(function() {
-
-                    send.classList.remove(
+                    send.classList.add(
                         "clicked"
                     );
 
 
-                    /* ==================================
-                       ADD USER MESSAGE
-                    ================================== */
+                    setTimeout(
 
-                    const user =
-                        document.createElement("div");
+                        function() {
 
-                    user.className =
-                        "user-message";
-
-
-                    user.innerHTML = `
-
-                        <div class="user-bubble">
-
-                            ${escapeHTML(
-                                prompt.trim()
-                            )}
-
-                        </div>
-
-                    `;
-
-
-                    conversation.appendChild(user);
-
-
-                    /* Clear prompt */
-
-                    document.getElementById(
-                        "typingText"
-                    ).textContent = "";
-
-
-                    document.getElementById(
-                        "cursor"
-                    ).style.display = "none";
-
-
-                    autoScroll();
-
-
-
-                    /* ==================================
-                       WAIT THEN RESPONSE
-                    ================================== */
-
-                    setTimeout(function() {
-
-                        /*
-                           Response 1:
-                           original plain-text animation.
-
-                           Response 2:
-                           formatted HTML response.
-                        */
-
-                        if (number === 1) {
-
-                            createPlainResponse(
-                                response,
-                                number
+                            send.classList.remove(
+                                "clicked"
                             );
 
-                        } else {
 
-                            createFormattedResponse(
-                                response,
-                                number
+                            /* ADD USER MESSAGE */
+
+                            const user =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            user.className =
+                                "user-message";
+
+
+                            user.innerHTML = `
+
+                                <div class="user-bubble">
+
+                                    ${escapeHTML(
+                                        prompt.trim()
+                                    )}
+
+                                </div>
+
+                            `;
+
+
+                            conversation.appendChild(
+                                user
                             );
 
-                        }
 
-                    }, pauseBeforeResponse);
+                            /* CLEAR PROMPT */
+
+                            document.getElementById(
+                                "typingText"
+                            ).textContent = "";
 
 
-                }, 180);
+                            document.getElementById(
+                                "cursor"
+                            ).style.display =
+                                "none";
 
-            }, 400);
+
+                            autoScroll();
+
+
+                            /* WAIT */
+
+                            setTimeout(
+
+                                function() {
+
+                                    createFormattedResponse(
+                                        response,
+                                        number
+                                    );
+
+                                },
+
+                                pauseBeforeResponse
+
+                            );
+
+
+                        },
+
+                        180
+
+                    );
+
+                },
+
+                400
+
+            );
 
         }
 
     );
+
 }
 
 
-
 /* =====================================================
-   RESPONSE 1
-   ORIGINAL STYLE
-===================================================== */
-
-function createPlainResponse(
-    response,
-    number
-) {
-
-    const conversation =
-        document.getElementById(
-            "conversation"
-        );
-
-
-    const assistant =
-        document.createElement("div");
-
-
-    assistant.className =
-        "assistant-message";
-
-
-    assistant.innerHTML = `
-
-        <img
-            src="chatgpt-logo.png"
-            class="assistant-logo"
-            alt="ChatGPT"
-        >
-
-        <div class="response">
-
-            <span class="response-text"></span>
-
-            <span
-                class="cursor response-cursor"
-            ></span>
-
-        </div>
-
-    `;
-
-
-    conversation.appendChild(assistant);
-
-
-    const text =
-        assistant.querySelector(
-            ".response-text"
-        );
-
-
-    const cursor =
-        assistant.querySelector(
-            ".response-cursor"
-        );
-
-
-    typeText(
-
-        text,
-
-        response.trim(),
-
-        responseTypingSpeed,
-
-        function() {
-
-            cursor.style.display = "none";
-
-            finishQuestion(number);
-
-        }
-
-    );
-}
-
-
-
-/* =====================================================
-   FORMATTED RESPONSE 2
+   CREATE FORMATTED RESPONSE
 ===================================================== */
 
 function createFormattedResponse(
@@ -1526,7 +1776,9 @@ function createFormattedResponse(
 
 
     const assistant =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
 
     assistant.className =
@@ -1543,14 +1795,10 @@ function createFormattedResponse(
 
         <div class="response">
 
-            <div
-                class="formatted-response"
-                id="formattedResponse"
-            ></div>
+            <div class="formatted-response"></div>
 
             <span
                 class="cursor response-cursor"
-                id="formattedCursor"
             ></span>
 
         </div>
@@ -1558,7 +1806,9 @@ function createFormattedResponse(
     `;
 
 
-    conversation.appendChild(assistant);
+    conversation.appendChild(
+        assistant
+    );
 
 
     const container =
@@ -1573,28 +1823,31 @@ function createFormattedResponse(
         );
 
 
-    /*
-       Instead of typing raw HTML characters,
-       reveal the response section-by-section.
-    */
-
     revealHTML(
+
         container,
+
         html,
+
         function() {
 
-            cursor.style.display = "none";
+            cursor.style.display =
+                "none";
 
-            finishQuestion(number);
+
+            finishQuestion(
+                number
+            );
 
         }
+
     );
+
 }
 
 
-
 /* =====================================================
-   REVEAL FORMATTED HTML
+   REVEAL RESPONSE
 ===================================================== */
 
 function revealHTML(
@@ -1603,19 +1856,20 @@ function revealHTML(
     callback
 ) {
 
-    /*
-       Parse the response into a temporary
-       HTML document.
-    */
-
     const temp =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    temp.innerHTML = html;
+
+    temp.innerHTML =
+        html;
 
 
     const elements =
-        Array.from(temp.childNodes);
+        Array.from(
+            temp.childNodes
+        );
 
 
     let index = 0;
@@ -1623,10 +1877,15 @@ function revealHTML(
 
     function revealNext() {
 
-        if (index >= elements.length) {
+        if (
+            index >=
+            elements.length
+        ) {
 
             if (callback) {
+
                 callback();
+
             }
 
             return;
@@ -1637,44 +1896,32 @@ function revealHTML(
             elements[index];
 
 
-        /*
-           Clone the element into the
-           actual response.
-        */
-
         const clone =
             element.cloneNode(true);
 
 
-        container.appendChild(clone);
+        container.appendChild(
+            clone
+        );
 
 
         index++;
 
 
-        /*
-           Scroll after each section.
-        */
-
         autoScroll();
 
 
         /*
-           Tables appear as complete,
-           readable tables rather than
-           one character at a time.
+           Timing controls how quickly
+           each section appears.
         */
 
-        let delay = 180;
+        let delay = 220;
 
 
         if (
             clone.nodeType === 1 &&
-            (
-                clone.tagName === "TABLE" ||
-                clone.querySelector &&
-                clone.querySelector("table")
-            )
+            clone.tagName === "P"
         ) {
 
             delay = 500;
@@ -1684,7 +1931,11 @@ function revealHTML(
 
         if (
             clone.nodeType === 1 &&
-            clone.tagName === "P"
+            (
+                clone.tagName === "H1" ||
+                clone.tagName === "H2" ||
+                clone.tagName === "H3"
+            )
         ) {
 
             delay = 450;
@@ -1695,12 +1946,28 @@ function revealHTML(
         if (
             clone.nodeType === 1 &&
             (
-                clone.tagName === "H2" ||
-                clone.tagName === "H3"
+                clone.tagName === "UL" ||
+                clone.tagName === "OL"
             )
         ) {
 
-            delay = 400;
+            delay = 500;
+
+        }
+
+
+        if (
+            clone.nodeType === 1 &&
+            (
+                clone.tagName === "TABLE" ||
+                (
+                    clone.querySelector &&
+                    clone.querySelector("table")
+                )
+            )
+        ) {
+
+            delay = 700;
 
         }
 
@@ -1714,8 +1981,8 @@ function revealHTML(
 
 
     revealNext();
-}
 
+}
 
 
 /* =====================================================
@@ -1726,13 +1993,20 @@ function finishQuestion(number) {
 
     if (number === 1) {
 
-        setTimeout(function() {
+        setTimeout(
 
-            document.getElementById(
-                "nextButton"
-            ).style.display = "block";
+            function() {
 
-        }, 500);
+                document.getElementById(
+                    "nextButton"
+                ).style.display =
+                    "block";
+
+            },
+
+            500
+
+        );
 
     }
 
@@ -1748,9 +2022,8 @@ function finishQuestion(number) {
 }
 
 
-
 /* =====================================================
-   ESCAPE HTML
+   ESCAPE USER TEXT
 ===================================================== */
 
 function escapeHTML(text) {
