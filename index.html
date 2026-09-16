@@ -3,1396 +3,813 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ChatGPT Presentation Demo</title>
 
 <style>
-
-/* =====================================================
-   GENERAL
-===================================================== */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    background: #212121;
-
-    color: #ececec;
-
-    height: 100vh;
-
-    overflow: hidden;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.header {
-
-    height: 60px;
-
-    display: flex;
-
-    align-items: center;
-
-    padding: 0 22px;
-
-    border-bottom: 1px solid #3a3a3a;
-
-    background: #212121;
-}
-
-
-.header-logo {
-
-    width: 32px;
-
-    height: 32px;
-
-    object-fit: contain;
-
-    margin-right: 10px;
-}
-
-
-.title {
-
-    font-size: 17px;
-
-    font-weight: 600;
-
-    color: #ececec;
-}
-
-
-/* =====================================================
-   CHAT AREA
-===================================================== */
-
-.chat {
-
-    position: absolute;
-
-    top: 60px;
-
-    bottom: 105px;
-
-    left: 0;
-
-    right: 0;
-
-    overflow-y: auto;
-
-    padding: 40px 20px 80px;
-
-    scroll-behavior: smooth;
-}
-
-
-.chat::-webkit-scrollbar {
-
-    width: 8px;
-}
-
-
-.chat::-webkit-scrollbar-track {
-
-    background: #212121;
-}
-
-
-.chat::-webkit-scrollbar-thumb {
-
-    background: #4a4a4a;
-
-    border-radius: 10px;
-}
-
-
-.conversation {
-
-    max-width: 900px;
-
-    margin: auto;
-}
-
-
-/* =====================================================
-   USER MESSAGE
-===================================================== */
-
-.user-message {
-
-    display: flex;
-
-    justify-content: flex-end;
-
-    margin-bottom: 30px;
-}
-
-
-.user-bubble {
-
-    max-width: 75%;
-
-    background: #303030;
-
-    padding: 12px 18px;
-
-    border-radius: 18px;
-
-    font-size: 16px;
-
-    line-height: 1.5;
-
-    white-space: pre-wrap;
-
-    color: #ececec;
-}
-
-
-/* =====================================================
-   ASSISTANT MESSAGE
-===================================================== */
-
-.assistant-message {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 14px;
-
-    margin-bottom: 45px;
-}
-
-
-.assistant-logo {
-
-    flex-shrink: 0;
-
-    width: 32px;
-
-    height: 32px;
-
-    object-fit: contain;
-}
-
-
-.response {
-
-    font-size: 16px;
-
-    line-height: 1.65;
-
-    max-width: 820px;
-
-    color: #ececec;
-}
-
-
-/* =====================================================
-   RESPONSE HEADINGS
-===================================================== */
-
-.response h1 {
-
-    font-size: 22px;
-
-    margin: 8px 0 18px;
-
-    color: #ffffff;
-}
-
-
-.response h2 {
-
-    font-size: 20px;
-
-    margin: 25px 0 15px;
-
-    color: #ffffff;
-}
-
-
-.response h3 {
-
-    font-size: 18px;
-
-    margin: 22px 0 12px;
-
-    color: #ffffff;
-}
-
-
-.response p {
-
-    margin: 0 0 16px;
-}
-
-
-.response strong {
-
-    color: #ffffff;
-}
-
-
-/* =====================================================
-   LISTS
-===================================================== */
-
-.response ul,
-.response ol {
-
-    margin: 8px 0 20px 25px;
-
-    padding-left: 20px;
-}
-
-
-.response li {
-
-    margin-bottom: 7px;
-}
-
-
-/* =====================================================
-   TABLES
-===================================================== */
-
-.table-wrapper {
-
-    width: 100%;
-
-    overflow-x: auto;
-
-    margin: 18px 0 28px;
-
-    border-radius: 10px;
-
-    scrollbar-width: thin;
-}
-
-
-.response table {
-
-    width: 100%;
-
-    border-collapse: collapse;
-
-    background: #2a2a2a;
-
-    font-size: 13px;
-
-    line-height: 1.45;
-}
-
-
-.response th {
-
-    background: #3a3a3a;
-
-    color: #ffffff;
-
-    font-weight: 600;
-
-    text-align: left;
-
-    padding: 10px 11px;
-
-    border: 1px solid #505050;
-
-    white-space: nowrap;
-}
-
-
-.response td {
-
-    padding: 9px 11px;
-
-    border: 1px solid #484848;
-
-    color: #e6e6e6;
-
-    vertical-align: top;
-}
-
-
-.response tr:nth-child(even) td {
-
-    background: #303030;
-}
-
-
-/* =====================================================
-   TYPING CURSOR
-===================================================== */
-
-.cursor {
-
-    display: inline-block;
-
-    width: 2px;
-
-    height: 18px;
-
-    background: #ececec;
-
-    margin-left: 3px;
-
-    vertical-align: middle;
-
-    animation: blink 0.8s infinite;
-}
-
-
-@keyframes blink {
-
-    0%, 50% {
-        opacity: 1;
+    * {
+        box-sizing: border-box;
     }
 
-    51%, 100% {
-        opacity: 0;
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #212121;
+        color: #ececec;
+        height: 100vh;
+        overflow: hidden;
     }
 
-}
-
-
-/* =====================================================
-   BOTTOM INPUT
-===================================================== */
-
-.input-container {
-
-    position: fixed;
-
-    bottom: 20px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: min(820px, calc(100% - 30px));
-
-    background: #212121;
-}
-
-
-.prompt-box {
-
-    min-height: 58px;
-
-    border: 1px solid #555;
-
-    border-radius: 28px;
-
-    display: flex;
-
-    align-items: center;
-
-    padding: 8px 10px 8px 18px;
-
-    background: #303030;
-
-    box-shadow:
-        0 2px 10px rgba(0,0,0,0.25);
-}
-
-
-.plus {
-
-    width: 35px;
-
-    height: 35px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 25px;
-
-    color: #b5b5b5;
-
-    margin-right: 8px;
-}
-
-
-.prompt-text {
-
-    flex: 1;
-
-    font-size: 16px;
-
-    min-height: 25px;
-
-    display: flex;
-
-    align-items: center;
-
-    white-space: pre-wrap;
-
-    color: #ececec;
-}
-
-
-.send {
-
-    width: 38px;
-
-    height: 38px;
-
-    border-radius: 50%;
-
-    background: #ececec;
-
-    color: #212121;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    transition:
-        transform 0.15s ease;
-}
-
-
-.send.clicked {
-
-    transform: scale(0.85);
-}
-
-
-/* =====================================================
-   START SCREEN
-===================================================== */
-
-.start-screen {
-
-    position: fixed;
-
-    inset: 0;
-
-    background: #212121;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    z-index: 100;
-}
-
-
-.start-button {
-
-    padding: 14px 25px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #ececec;
-
-    color: #212121;
-
-    font-size: 16px;
-
-    cursor: pointer;
-}
-
-
-.start-button:hover {
-
-    background: #ffffff;
-}
-
-
-/* =====================================================
-   NEXT QUESTION BUTTON
-===================================================== */
-
-.next-button {
-
-    display: none;
-
-    position: fixed;
-
-    bottom: 95px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    background: #ececec;
-
-    color: #212121;
-
-    border: none;
-
-    border-radius: 8px;
-
-    padding: 10px 18px;
-
-    cursor: pointer;
-
-    z-index: 20;
-}
-
+    /* HEADER */
+    .header {
+        height: 60px;
+        background: #212121;
+        border-bottom: 1px solid #333;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+        gap: 12px;
+    }
+
+    .header img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+
+    .header-title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* CHAT AREA */
+    .chat-container {
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+        padding-bottom: 150px;
+    }
+
+    .chat {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 24px;
+    }
+
+    /* USER MESSAGE */
+    .user-row {
+        display: flex;
+        justify-content: flex-end;
+        margin: 20px 0 28px;
+    }
+
+    .user-message {
+        background: #404040;
+        padding: 13px 18px;
+        border-radius: 18px;
+        max-width: 75%;
+        line-height: 1.5;
+        white-space: pre-wrap;
+    }
+
+    /* ASSISTANT MESSAGE */
+    .assistant-row {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 40px;
+    }
+
+    .assistant-logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .assistant-content {
+        flex: 1;
+        min-width: 0;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    .assistant-content h2 {
+        font-size: 21px;
+        margin: 8px 0 16px;
+    }
+
+    .assistant-content h3 {
+        font-size: 18px;
+        margin: 24px 0 12px;
+    }
+
+    .assistant-content p {
+        margin: 10px 0 16px;
+    }
+
+    .assistant-content ul,
+    .assistant-content ol {
+        margin: 8px 0 18px 22px;
+        padding-left: 18px;
+    }
+
+    .assistant-content li {
+        margin-bottom: 7px;
+    }
+
+    .assistant-content strong {
+        font-weight: 700;
+    }
+
+    /* TABLES */
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        margin: 18px 0 24px;
+    }
+
+    .assistant-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        background: #2a2a2a;
+    }
+
+    .assistant-content th {
+        background: #3a3a3a;
+        font-weight: 700;
+        text-align: left;
+        color: #ffffff;
+    }
+
+    .assistant-content th,
+    .assistant-content td {
+        border: 1px solid #555;
+        padding: 10px 12px;
+        vertical-align: top;
+    }
+
+    .assistant-content td {
+        color: #e5e5e5;
+    }
+
+    /* TYPING CURSOR */
+    .cursor {
+        display: inline-block;
+        width: 7px;
+        height: 17px;
+        background: #ececec;
+        margin-left: 3px;
+        animation: blink 0.8s infinite;
+        vertical-align: middle;
+    }
+
+    @keyframes blink {
+        0%, 50% {
+            opacity: 1;
+        }
+        51%, 100% {
+            opacity: 0;
+        }
+    }
+
+    /* BOTTOM INPUT */
+    .input-area {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+            transparent,
+            #212121 25%
+        );
+        padding: 25px 20px 25px;
+        z-index: 10;
+    }
+
+    .input-box {
+        max-width: 850px;
+        margin: 0 auto;
+        min-height: 58px;
+        background: #d6b84c;
+        border-radius: 28px;
+        display: flex;
+        align-items: center;
+        padding: 8px 12px 8px 18px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .plus {
+        font-size: 28px;
+        color: #202020;
+        width: 35px;
+        flex-shrink: 0;
+        line-height: 1;
+    }
+
+    .prompt-text {
+        flex: 1;
+        color: #202020;
+        font-size: 15px;
+        min-height: 25px;
+        display: flex;
+        align-items: center;
+        white-space: pre-wrap;
+        overflow: hidden;
+    }
+
+    .send-button {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: none;
+        background: #202020;
+        color: #f1f1f1;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    /* START SCREEN */
+    .start-screen {
+        position: fixed;
+        inset: 0;
+        background: #212121;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    .start-screen img {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 20px;
+    }
+
+    .start-screen h1 {
+        font-size: 28px;
+        margin: 0 0 25px;
+    }
+
+    .start-button,
+    .continue-button {
+        border: none;
+        background: #ececec;
+        color: #212121;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .continue-button {
+        margin-top: 25px;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* Slightly smaller tables on smaller screens */
+    @media (max-width: 700px) {
+        .chat {
+            padding: 20px 14px;
+        }
+
+        .user-message {
+            max-width: 90%;
+        }
+
+        .assistant-content {
+            font-size: 14px;
+        }
+
+        .assistant-content table {
+            font-size: 12px;
+        }
+
+        .assistant-content th,
+        .assistant-content td {
+            padding: 8px;
+        }
+    }
 </style>
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     START SCREEN
-===================================================== -->
-
-<div
-    class="start-screen"
-    id="startScreen"
->
-
-    <button
-        class="start-button"
-        onclick="startDemo()"
-    >
-        Start
-    </button>
-
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+    <img src="chatgpt-logo.png" alt="ChatGPT">
+    <h1>ChatGPT</h1>
+    <button class="start-button" onclick="startDemo()">Start Demo</button>
 </div>
 
+<!-- MAIN CHAT -->
+<div class="chat-container" id="chatContainer">
+    <div class="chat" id="chat"></div>
+</div>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<div class="header">
-
-    <img
-        src="chatgpt-logo.png"
-        class="header-logo"
-        alt="ChatGPT"
-    >
-
-    <div class="title">
-        ChatGPT
+<!-- BOTTOM INPUT -->
+<div class="input-area">
+    <div class="input-box">
+        <div class="plus">+</div>
+        <div class="prompt-text" id="promptText"></div>
+        <button class="send-button">↑</button>
     </div>
-
 </div>
-
-
-<!-- =====================================================
-     CHAT
-===================================================== -->
-
-<div
-    class="chat"
-    id="chat"
->
-
-    <div
-        class="conversation"
-        id="conversation"
-    ></div>
-
-</div>
-
-
-<!-- =====================================================
-     BOTTOM PROMPT
-===================================================== -->
-
-<div class="input-container">
-
-    <div class="prompt-box">
-
-        <div class="plus">
-            +
-        </div>
-
-        <div class="prompt-text">
-
-            <span id="typingText"></span>
-
-            <span
-                class="cursor"
-                id="cursor"
-            ></span>
-
-        </div>
-
-        <div
-            class="send"
-            id="sendButton"
-        >
-            ↑
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     CONTINUE BUTTON
-===================================================== -->
-
-<button
-    class="next-button"
-    id="nextButton"
-    onclick="startQuestion(2)"
->
-    Continue
-</button>
-
 
 <script>
 
-
-/* =====================================================
+/* =========================================================
    QUESTION 1
-===================================================== */
+   ========================================================= */
 
-const question1 = `
-Generate a formulation for an intranasal dopamine loaded chitosan nanoparticle formulation.
-`;
-
-
-
-/* =====================================================
-   RESPONSE 1
-===================================================== */
+const question1 =
+"Generate a formulation for an intranasal dopamine loaded chitosan nanoparticle formulation.";
 
 const response1 = `
-
-<p>
-If you mean a research/laboratory formulation, I can help design the formulation conceptually. However, an intranasal nanoparticle drug product is a pharmaceutical preparation, so I would not recommend using a homemade formulation in humans or animals without appropriate formulation development, sterility, toxicology, and institutional approval.
-</p>
-
+<p>If you mean a research/laboratory formulation, I can help design the formulation conceptually. However, an intranasal nanoparticle drug product is a pharmaceutical preparation, so I would not recommend using a homemade formulation in humans or animals without appropriate formulation development, sterility, toxicology, and institutional approval.</p>
 
 <h2>Proposed intranasal dopamine-loaded chitosan nanoparticle system</h2>
 
-
-<p>
-<strong>Objective:</strong> Encapsulate dopamine in a mucoadhesive chitosan nanoparticle system intended for intranasal delivery, with the goal of improving nasal residence time and potentially facilitating nose-to-brain transport.
-</p>
-
+<p><strong>Objective:</strong> Encapsulate dopamine in a mucoadhesive chitosan nanoparticle system intended for intranasal delivery, with the goal of improving nasal residence time and potentially facilitating nose-to-brain transport.</p>
 
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
 <tr>
-
 <th>Component</th>
-
 <th>Suggested role</th>
-
 </tr>
-
 </thead>
-
-
 <tbody>
-
 <tr>
-
 <td>Dopamine HCl</td>
-
 <td>Active pharmaceutical ingredient</td>
-
 </tr>
-
-
 <tr>
-
 <td>Low/medium molecular-weight chitosan</td>
-
 <td>Nanoparticle-forming polymer and mucoadhesive</td>
-
 </tr>
-
-
 <tr>
-
 <td>Sodium tripolyphosphate (TPP)</td>
-
 <td>Ionic crosslinker</td>
-
 </tr>
-
-
 <tr>
-
 <td>Acetic acid or another suitable acidic aqueous vehicle</td>
-
 <td>Dissolves/protonates chitosan</td>
-
 </tr>
-
-
 <tr>
-
 <td>Trehalose or mannitol</td>
-
 <td>Stabilizer/cryoprotectant if nanoparticles are dried</td>
-
 </tr>
-
-
 <tr>
-
 <td>Suitable isotonic buffer</td>
-
 <td>Nasal-compatible vehicle</td>
-
 </tr>
-
-
 <tr>
-
 <td>Purified water</td>
-
 <td>Solvent</td>
-
 </tr>
-
 </tbody>
-
 </table>
-
 </div>
 
+<h3>Formulation architecture</h3>
 
-<h2>Formulation architecture</h2>
+<p>A reasonable starting research formulation would be:</p>
 
+<p><strong>Dopamine HCl → chitosan/TPP nanoparticles → aqueous nasal dispersion</strong></p>
 
-<p>
-A reasonable starting research formulation would be:
-</p>
+<p>The nanoparticles would generally be produced using ionic gelation, where protonated chitosan interacts electrostatically with TPP, forming nanoscale particles in which dopamine is incorporated during particle formation.</p>
 
-
-<p>
-<strong>Dopamine HCl → chitosan/TPP nanoparticles → aqueous nasal dispersion</strong>
-</p>
-
-
-<p>
-The nanoparticles would generally be produced using ionic gelation, where protonated chitosan interacts electrostatically with TPP, forming nanoscale particles in which dopamine is incorporated during particle formation.
-</p>
-
-
-<p>
-For development, the important variables to optimize would include:
-</p>
-
+<p>For development, the important variables to optimize would include:</p>
 
 <ul>
-
 <li>Chitosan molecular weight and degree of deacetylation</li>
-
 <li>Chitosan:TPP ratio</li>
-
 <li>Dopamine:polymer ratio</li>
-
 <li>Particle size</li>
-
 <li>Polydispersity index</li>
-
 <li>Zeta potential</li>
-
 <li>Dopamine encapsulation efficiency</li>
-
 <li>Drug loading</li>
-
 <li>In-vitro dopamine release</li>
-
 <li>Nanoparticle stability</li>
-
 <li>Nasal mucoadhesion</li>
-
 <li>Osmolality and pH</li>
-
 <li>Nasal epithelial compatibility/cytotoxicity</li>
-
 <li>Microbiological quality</li>
-
 </ul>
 
+<h3>Target characteristics</h3>
 
-<h2>Target characteristics</h2>
+<p>For an experimental intranasal nanoparticle system, you would generally want a small, relatively uniform particle population, positive surface charge from chitosan, good encapsulation, controlled release, and a formulation whose pH and osmolality are compatible with nasal tissue.</p>
 
+<p>One important scientific issue is dopamine itself. Dopamine is readily metabolized and has limited ability to cross the blood-brain barrier, which is one reason the nose-to-brain route is being investigated. Encapsulation does not automatically demonstrate brain delivery, so an effective study needs pharmacokinetic and brain-distribution evidence rather than relying only on nanoparticle characterization.</p>
 
-<p>
-For an experimental intranasal nanoparticle system, you would generally want a small, relatively uniform particle population, positive surface charge from chitosan, good encapsulation, controlled release, and a formulation whose pH and osmolality are compatible with nasal tissue.
-</p>
-
-
-<p>
-One important scientific issue is dopamine itself. Dopamine is readily metabolized and has limited ability to cross the blood-brain barrier, which is one reason the nose-to-brain route is being investigated. Encapsulation does not automatically demonstrate brain delivery, so an effective study needs pharmacokinetic and brain-distribution evidence rather than relying only on nanoparticle characterization.
-</p>
-
-
-<p>
-If this is for a pharmaceutical sciences research project, I can also lay out a complete <strong>QbD-style formulation development plan</strong>, including the independent variables, responses, characterization tests, experimental design, and an example formulation-development table, without presenting it as a clinically usable preparation.
-</p>
-
+<p>If this is for a pharmaceutical sciences research project, I can also lay out a complete QbD-style formulation development plan, including the independent variables, responses, characterization tests, experimental design, and an example formulation-development table, without presenting it as a clinically usable preparation.</p>
 `;
 
 
-
-/* =====================================================
+/* =========================================================
    QUESTION 2
-===================================================== */
+   ========================================================= */
 
-const question2 = `
-Development of an intranasal levodopa nanosystem for the treatment of PD
-
-Below are established QTPPs and CQAs for a chitosan intranasal levodopa nanosystem.
-
-QTPPs
-
-· Dosage form: nasal sprayed suspension
-· Route of administration: Direct intranasal administration
-· Drug product quality attributes (particle size, zeta potential, release kinetics and stability)
-· Content uniformity: Uniform dispersion
-· Microbial limit: As per the ICH guidelines
-· Stability: As per the ICH guidelines
-
-CQAs
-
-· Particle size range: 100 nm – 200 nm
-· Zeta potential: ±10 – ±30 mV
-· Release profile: Immediate release
-· Formulation stability
-
-Considering the aforementioned QTPP and CQAs, generate CMAs and CPPs based on these elements in a tabulated form.
-
-CMAs
-
-· API concentration
-· Polymer concentration
-· Molecular weight of polymer
-· Cross-linking agent
-· Surfactant
-
-CPPs
-
-· Manufacturing method
-· Stirrer type
-· Centrifuge speed
-· Centrifuge time
-· Temperature
-
-Once CMAs and CPPs are tabulated, generate an entire final formulation based on these QBD elements.
-`;
+const question2 =
+`For a Quality by Design (QbD) approach to the development of an intranasal dopamine hydrochloride-loaded chitosan nanosystem intended for Parkinson's disease (PD), the Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) should be linked to the established CQAs (particle size, zeta potential, release profile, and stability).`;
 
 
-
-/* =====================================================
+/* =========================================================
    RESPONSE 2
-===================================================== */
+   ========================================================= */
 
 const response2 = `
-
-<p>
-Below is a Quality by Design (QbD)-based framework for the development of a <strong>chitosan-based intranasal levodopa nanosystem</strong> intended for the treatment of Parkinson's disease (PD). The proposed Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) are linked to the established Quality Target Product Profile (QTPP) and Critical Quality Attributes (CQAs).
-</p>
-
+<p>For a <strong>Quality by Design (QbD)</strong> approach to the development of an <strong>intranasal dopamine hydrochloride-loaded chitosan nanosystem</strong> intended for Parkinson's disease (PD), the Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) should be linked to the established CQAs (particle size, zeta potential, release profile, and stability).</p>
 
 <h2>1. Critical Material Attributes (CMAs)</h2>
 
-
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
 <tr>
 <th>CMA</th>
-<th>Proposed Target/Range</th>
-<th>Impact on CQAs</th>
-<th>Criticality</th>
+<th>Target/Range</th>
+<th>Justification</th>
+<th>Impacted CQAs</th>
 </tr>
-
 </thead>
-
 <tbody>
 
 <tr>
-<td><strong>Levodopa concentration</strong></td>
-<td>5–20 mg/mL</td>
-<td>Influences particle size, drug loading, release profile, content uniformity</td>
-<td>High</td>
+<td><strong>Dopamine hydrochloride concentration</strong></td>
+<td>0.5–2.0 mg/mL</td>
+<td>Influences drug loading, release rate, and formulation stability</td>
+<td>Particle size, release profile, stability</td>
 </tr>
 
 <tr>
 <td><strong>Chitosan concentration</strong></td>
 <td>0.1–0.5% w/v</td>
-<td>Controls nanoparticle formation, particle size, zeta potential, mucoadhesion</td>
-<td>High</td>
+<td>Determines nanoparticle formation, mucoadhesion, viscosity, and drug entrapment</td>
+<td>Particle size, zeta potential, release profile</td>
 </tr>
 
 <tr>
 <td><strong>Molecular weight of chitosan</strong></td>
-<td>50–190 kDa (medium MW preferred)</td>
-<td>Affects viscosity, particle size, stability, nasal residence time</td>
-<td>High</td>
+<td>Medium MW (100–300 kDa)</td>
+<td>Provides adequate nanoparticle stability and nasal residence time</td>
+<td>Particle size, zeta potential, stability</td>
 </tr>
 
 <tr>
 <td><strong>Degree of deacetylation of chitosan</strong></td>
-<td>≥80%</td>
-<td>Influences positive surface charge and mucoadhesion</td>
-<td>Medium–High</td>
+<td>75–90%</td>
+<td>Affects positive charge density and mucoadhesive properties</td>
+<td>Zeta potential, stability</td>
 </tr>
 
 <tr>
 <td><strong>Cross-linking agent (TPP)</strong></td>
-<td>0.05–0.25% w/v</td>
-<td>Determines nanoparticle compactness, size, and drug release rate</td>
-<td>High</td>
+<td>0.05–0.20% w/v</td>
+<td>Controls nanoparticle formation through ionic gelation</td>
+<td>Particle size, stability</td>
 </tr>
 
 <tr>
 <td><strong>Chitosan:TPP ratio</strong></td>
-<td>3:1 to 6:1</td>
-<td>Strong effect on particle size and zeta potential</td>
-<td>High</td>
+<td>3:1 – 6:1</td>
+<td>Governs nanoparticle size and surface charge</td>
+<td>Particle size, zeta potential</td>
 </tr>
 
 <tr>
-<td><strong>Surfactant type</strong></td>
-<td>Poloxamer 188 or Tween 80</td>
-<td>Improves stability and dispersion uniformity</td>
-<td>Medium</td>
+<td><strong>Poloxamer 188 concentration</strong></td>
+<td>0.1–0.5% w/v</td>
+<td>Stabilizes nanosuspension and prevents aggregation</td>
+<td>Particle size, stability</td>
 </tr>
 
 <tr>
-<td><strong>Surfactant concentration</strong></td>
-<td>0.05–0.2% w/v</td>
-<td>Prevents aggregation; influences particle size</td>
-<td>Medium</td>
+<td><strong>Purified water quality</strong></td>
+<td>USP/Ph. Eur. grade</td>
+<td>Prevents contamination and ensures reproducibility</td>
+<td>Stability</td>
 </tr>
 
 <tr>
-<td><strong>Aqueous phase pH</strong></td>
-<td>4.5–5.5</td>
-<td>Affects chitosan solubility and nanoparticle formation</td>
-<td>High</td>
-</tr>
-
-<tr>
-<td><strong>Cryoprotectant (if lyophilized)</strong></td>
-<td>Mannitol or trehalose 2–5% w/v</td>
-<td>Improves storage stability</td>
-<td>Medium</td>
+<td><strong>pH of formulation</strong></td>
+<td>5.0–6.0</td>
+<td>Maintains dopamine stability and nasal compatibility</td>
+<td>Stability, release profile</td>
 </tr>
 
 </tbody>
-
 </table>
-
 </div>
 
 
 <h2>2. Critical Process Parameters (CPPs)</h2>
 
-
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
 <tr>
 <th>CPP</th>
-<th>Proposed Range</th>
-<th>Impact on CQAs</th>
-<th>Criticality</th>
+<th>Target/Range</th>
+<th>Justification</th>
+<th>Impacted CQAs</th>
 </tr>
-
 </thead>
-
 <tbody>
 
 <tr>
 <td><strong>Manufacturing method</strong></td>
 <td>Ionic gelation</td>
-<td>Determines nanoparticle formation and reproducibility</td>
-<td>High</td>
+<td>Mild process suitable for dopamine and chitosan nanoparticles</td>
+<td>All CQAs</td>
 </tr>
 
 <tr>
 <td><strong>Stirrer type</strong></td>
-<td>Magnetic stirrer or overhead stirrer</td>
-<td>Affects particle size distribution</td>
-<td>Medium</td>
+<td>Overhead mechanical stirrer or magnetic stirrer</td>
+<td>Ensures uniform mixing and nanoparticle formation</td>
+<td>Particle size, uniformity</td>
 </tr>
 
 <tr>
-<td><strong>Stirring speed</strong></td>
-<td>700–1200 rpm</td>
-<td>Controls particle size and uniformity</td>
-<td>High</td>
+<td><strong>Stirring speed during TPP addition</strong></td>
+<td>800–1200 rpm</td>
+<td>Controls nucleation and particle growth</td>
+<td>Particle size, zeta potential</td>
 </tr>
 
 <tr>
 <td><strong>TPP addition rate</strong></td>
 <td>0.5–1.0 mL/min</td>
-<td>Influences nanoparticle size and aggregation</td>
-<td>High</td>
+<td>Prevents uncontrolled aggregation</td>
+<td>Particle size, stability</td>
 </tr>
 
 <tr>
-<td><strong>Mixing time</strong></td>
+<td><strong>Mixing time after TPP addition</strong></td>
 <td>30–60 min</td>
-<td>Impacts nanoparticle maturation and stability</td>
-<td>Medium</td>
+<td>Ensures complete crosslinking</td>
+<td>Stability, particle size</td>
 </tr>
 
 <tr>
 <td><strong>Centrifuge speed</strong></td>
-<td>12,000–20,000 rpm</td>
-<td>Affects nanoparticle recovery and size distribution</td>
-<td>High</td>
+<td>12,000–18,000 rpm</td>
+<td>Efficient nanoparticle recovery</td>
+<td>Particle size, stability</td>
 </tr>
 
 <tr>
 <td><strong>Centrifuge time</strong></td>
 <td>20–40 min</td>
-<td>Influences separation efficiency</td>
-<td>Medium</td>
+<td>Ensures complete separation without aggregation</td>
+<td>Stability</td>
 </tr>
 
 <tr>
 <td><strong>Process temperature</strong></td>
 <td>20–25°C</td>
-<td>Impacts particle formation and levodopa stability</td>
-<td>Medium</td>
+<td>Minimizes dopamine degradation and maintains reproducibility</td>
+<td>Stability</td>
 </tr>
 
 <tr>
-<td><strong>Filtration</strong></td>
-<td>0.45 μm sterile filtration</td>
-<td>Removes aggregates and contaminants</td>
-<td>Medium</td>
+<td><strong>Homogenization (optional)</strong></td>
+<td>5,000–10,000 rpm for 5 min</td>
+<td>Improves dispersion uniformity</td>
+<td>Particle size</td>
 </tr>
 
 <tr>
-<td><strong>Storage temperature</strong></td>
-<td>2–8°C</td>
-<td>Critical for formulation stability</td>
-<td>High</td>
+<td><strong>Final pH adjustment</strong></td>
+<td>5.5 ± 0.2</td>
+<td>Optimizes nasal tolerance and dopamine stability</td>
+<td>Stability</td>
 </tr>
 
 </tbody>
-
 </table>
-
 </div>
 
 
-<h2>3. QbD Risk Assessment Matrix</h2>
+<h2>QbD-Based Final Formulation</h2>
 
+<h3>Target Product Profile</h3>
 
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
 <tr>
-<th>Factor</th>
-<th>Particle Size</th>
-<th>Zeta Potential</th>
-<th>Release Profile</th>
-<th>Stability</th>
+<th>Attribute</th>
+<th>Target</th>
 </tr>
-
 </thead>
-
 <tbody>
 
 <tr>
-<td>Levodopa concentration</td>
-<td>High</td>
-<td>Low</td>
-<td>High</td>
-<td>Medium</td>
+<td>Dosage form</td>
+<td>Intranasal sprayed nanosuspension</td>
 </tr>
 
 <tr>
-<td>Chitosan concentration</td>
-<td>High</td>
-<td>High</td>
-<td>Medium</td>
-<td>High</td>
+<td>Particle size</td>
+<td>100–200 nm</td>
 </tr>
 
 <tr>
-<td>Chitosan MW</td>
-<td>High</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>High</td>
+<td>Zeta potential</td>
+<td>+15 to +25 mV</td>
 </tr>
 
 <tr>
-<td>TPP concentration</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Medium</td>
+<td>Drug release</td>
+<td>Immediate release (&gt;80% within 30 min)</td>
 </tr>
 
 <tr>
-<td>Chitosan:TPP ratio</td>
-<td>High</td>
-<td>High</td>
-<td>Medium</td>
-<td>High</td>
+<td>Stability</td>
+<td>≥ 6 months accelerated stability</td>
 </tr>
 
 <tr>
-<td>Surfactant concentration</td>
-<td>Medium</td>
-<td>Low</td>
-<td>Low</td>
-<td>High</td>
-</tr>
-
-<tr>
-<td>Stirring speed</td>
-<td>High</td>
-<td>Low</td>
-<td>Low</td>
-<td>Medium</td>
-</tr>
-
-<tr>
-<td>Centrifuge speed</td>
-<td>Medium</td>
-<td>Low</td>
-<td>Low</td>
-<td>Medium</td>
-</tr>
-
-<tr>
-<td>Temperature</td>
-<td>Low</td>
-<td>Low</td>
-<td>Medium</td>
-<td>High</td>
+<td>Administration</td>
+<td>Intranasal spray</td>
 </tr>
 
 </tbody>
-
 </table>
-
 </div>
 
 
-<h2>4. Proposed Design Space</h2>
-
-
-<p>
-Based on literature for intranasal chitosan nanoparticles:
-</p>
-
+<h3>Optimized Final Formula (100 mL Batch)</h3>
 
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
-<tr>
-<th>Variable</th>
-<th>Low Level</th>
-<th>Mid Level</th>
-<th>High Level</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-<td>Chitosan concentration (% w/v)</td>
-<td>0.1</td>
-<td>0.3</td>
-<td>0.5</td>
-</tr>
-
-<tr>
-<td>TPP concentration (% w/v)</td>
-<td>0.05</td>
-<td>0.15</td>
-<td>0.25</td>
-</tr>
-
-<tr>
-<td>Levodopa concentration (mg/mL)</td>
-<td>5</td>
-<td>10</td>
-<td>20</td>
-</tr>
-
-<tr>
-<td>Stirring speed (rpm)</td>
-<td>700</td>
-<td>950</td>
-<td>1200</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-
-<p>
-Expected optimized region:
-</p>
-
-
-<ul>
-
-<li>Particle size: <strong>120–180 nm</strong></li>
-
-<li>Zeta potential: <strong>+18 to +28 mV</strong></li>
-
-<li>Entrapment efficiency: <strong>65–85%</strong></li>
-
-<li>Immediate drug release: <strong>&gt;70% within 1 h</strong></li>
-
-<li>Physical stability: <strong>≥3 months at 2–8°C</strong></li>
-
-</ul>
-
-
-<h2>5. Final Optimized Formulation (QbD-Based)</h2>
-
-
-<h3>Composition (100 mL Batch)</h3>
-
-
-<div class="table-wrapper">
-
-<table>
-
-<thead>
-
 <tr>
 <th>Component</th>
 <th>Function</th>
 <th>Quantity</th>
 </tr>
-
 </thead>
-
 <tbody>
 
 <tr>
-<td>Levodopa</td>
-<td>API</td>
-<td>1.0 g (10 mg/mL)</td>
+<td><strong>Dopamine hydrochloride</strong></td>
+<td>Active pharmaceutical ingredient</td>
+<td>100 mg (1 mg/mL)</td>
 </tr>
 
 <tr>
-<td>Chitosan (medium MW, 85% DDA)</td>
+<td><strong>Chitosan (medium MW, 85% DDA)</strong></td>
 <td>Mucoadhesive polymer</td>
-<td>0.30 g (0.3% w/v)</td>
+<td>300 mg (0.3% w/v)</td>
 </tr>
 
 <tr>
-<td>Sodium tripolyphosphate (TPP)</td>
-<td>Cross-linker</td>
-<td>0.10 g (0.1% w/v)</td>
+<td><strong>Sodium tripolyphosphate (TPP)</strong></td>
+<td>Cross-linking agent</td>
+<td>75 mg (0.075% w/v)</td>
 </tr>
 
 <tr>
-<td>Poloxamer 188</td>
+<td><strong>Poloxamer 188</strong></td>
 <td>Stabilizer/surfactant</td>
-<td>0.10 g (0.1% w/v)</td>
+<td>200 mg (0.2% w/v)</td>
 </tr>
 
 <tr>
-<td>Acetic acid solution (1% v/v)</td>
+<td><strong>Acetic acid (1% solution)</strong></td>
 <td>Chitosan solvent</td>
 <td>q.s.</td>
 </tr>
 
 <tr>
-<td>Sodium hydroxide</td>
+<td><strong>Sodium hydroxide/HCl</strong></td>
 <td>pH adjustment</td>
 <td>q.s.</td>
 </tr>
 
 <tr>
-<td>Purified water</td>
+<td><strong>Purified water</strong></td>
 <td>Vehicle</td>
 <td>q.s. to 100 mL</td>
 </tr>
 
 </tbody>
-
 </table>
-
 </div>
 
 
-<h3>Target Product Characteristics</h3>
-
+<h3>Critical Formulation Ratios</h3>
 
 <div class="table-wrapper">
-
 <table>
-
 <thead>
-
 <tr>
 <th>Parameter</th>
-<th>Target</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>Chitosan:TPP ratio</td>
+<td>4:1</td>
 </tr>
 
-</thead>
+<tr>
+<td>Drug:polymer ratio</td>
+<td>1:3</td>
+</tr>
 
+<tr>
+<td>pH</td>
+<td>5.5 ± 0.2</td>
+</tr>
+
+<tr>
+<td>Viscosity</td>
+<td>Suitable for nasal spraying (&lt;100 cP)</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<h3>Optimized Manufacturing Process</h3>
+
+<h3>Step 1: Chitosan Solution</h3>
+
+<ul>
+<li>Dissolve <strong>300 mg chitosan</strong> in 100 mL of 1% acetic acid.</li>
+<li>Stir at <strong>1000 rpm</strong> for 4–6 h until clear.</li>
+<li>Adjust pH to <strong>5.5</strong>.</li>
+</ul>
+
+<h3>Step 2: Drug Incorporation</h3>
+
+<ul>
+<li>Dissolve <strong>100 mg dopamine hydrochloride</strong> in the chitosan solution.</li>
+<li>Add <strong>200 mg Poloxamer 188</strong>.</li>
+<li>Stir for 15 min.</li>
+</ul>
+
+<h3>Step 3: TPP Solution</h3>
+
+<ul>
+<li>Dissolve <strong>75 mg TPP</strong> in purified water.</li>
+</ul>
+
+<h3>Step 4: Nanoparticle Formation (Ionic Gelation)</h3>
+
+<ul>
+<li>Add TPP solution dropwise (<strong>0.75 mL/min</strong>) into the chitosan-drug solution under stirring at <strong>1000 rpm</strong>.</li>
+<li>Continue stirring for <strong>45 min</strong>.</li>
+</ul>
+
+<h3>Step 5: Purification</h3>
+
+<ul>
+<li>Centrifuge at <strong>15,000 rpm for 30 min at 4°C</strong>.</li>
+<li>Redisperse pellet in purified water.</li>
+</ul>
+
+<h3>Step 6: Final Adjustment</h3>
+
+<ul>
+<li>Adjust pH to <strong>5.5 ± 0.2</strong>.</li>
+<li>Make up volume with purified water.</li>
+<li>Fill into sterile nasal spray containers.</li>
+</ul>
+
+
+<h3>Expected Product Performance</h3>
+
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>CQA</th>
+<th>Target Value</th>
+</tr>
+</thead>
 <tbody>
 
 <tr>
 <td>Particle size</td>
-<td>100–200 nm (target ~150 nm)</td>
+<td>120–180 nm</td>
 </tr>
 
 <tr>
@@ -1402,12 +819,7 @@ Expected optimized region:
 
 <tr>
 <td>Zeta potential</td>
-<td>+20 to +30 mV</td>
-</tr>
-
-<tr>
-<td>Drug loading</td>
-<td>&gt;10%</td>
+<td>+18 to +25 mV</td>
 </tr>
 
 <tr>
@@ -1416,645 +828,250 @@ Expected optimized region:
 </tr>
 
 <tr>
+<td>Drug content</td>
+<td>95–105%</td>
+</tr>
+
+<tr>
 <td>Release profile</td>
-<td>Immediate release (&gt;70% in 1 h)</td>
+<td>&gt;80% release within 30 min</td>
 </tr>
 
 <tr>
-<td>pH</td>
-<td>5.0–5.5</td>
+<td>Physical stability</td>
+<td>No aggregation for ≥6 months</td>
 </tr>
 
 <tr>
-<td>Appearance</td>
-<td>Homogeneous nanosuspension</td>
-</tr>
-
-<tr>
-<td>Administration</td>
-<td>Metered-dose nasal spray</td>
-</tr>
-
-<tr>
-<td>Stability</td>
-<td>Complies with ICH stability requirements</td>
+<td>Microbial limits</td>
+<td>Complies with ICH/Ph. Eur./USP requirements</td>
 </tr>
 
 </tbody>
-
 </table>
-
 </div>
 
-
-<h2>6. Manufacturing Process (Optimized)</h2>
-
-
-<ol>
-
-<li>
-Dissolve <strong>0.3 g chitosan</strong> in 100 mL of 1% acetic acid solution.
-</li>
-
-<li>
-Adjust pH to <strong>5.0–5.5</strong>.
-</li>
-
-<li>
-Dissolve <strong>1.0 g levodopa</strong> in the chitosan solution.
-</li>
-
-<li>
-Add <strong>0.1 g Poloxamer 188</strong> and stir until clear.
-</li>
-
-<li>
-Prepare <strong>0.1% w/v TPP solution</strong> separately.
-</li>
-
-<li>
-Under magnetic stirring at <strong>1000 rpm</strong>, add TPP dropwise
-(<strong>0.5–1 mL/min</strong>).
-</li>
-
-<li>
-Continue stirring for <strong>45 min at 25°C</strong>.
-</li>
-
-<li>
-Centrifuge at <strong>15,000 rpm for 30 min</strong>.
-</li>
-
-<li>
-Redisperse nanoparticles in purified water.
-</li>
-
-<li>
-Fill into sterile metered-dose nasal spray containers.
-</li>
-
-<li>
-Store at <strong>2–8°C</strong>.
-</li>
-
-</ol>
-
-
-<p>
-This formulation and process are expected to consistently achieve the target CQAs (particle size 100–200 nm, zeta potential +20 to +30 mV, immediate release, and acceptable stability) while satisfying the defined QTPP for an intranasal levodopa nanosystem.
-</p>
-
+<p>This formulation and process are consistent with the stated QTPPs and CQAs and represent a practical QbD-based design space for a chitosan–TPP intranasal dopamine hydrochloride nanosystem prepared by ionic gelation.</p>
 `;
 
 
+/* =========================================================
+   DEMO FUNCTIONS
+   ========================================================= */
 
-/* =====================================================
-   ANIMATION SETTINGS
-===================================================== */
-
-const promptTypingSpeed = 25;
-
-const pauseBeforeResponse = 900;
-
-
-/* =====================================================
-   START
-===================================================== */
+let currentQuestion = 1;
 
 function startDemo() {
-
-    document
-        .getElementById("startScreen")
-        .style.display = "none";
-
+    document.getElementById("startScreen").classList.add("hidden");
     startQuestion(1);
 }
 
 
-/* =====================================================
-   TYPE PROMPT
-===================================================== */
+/* TYPE PROMPT INTO BOTTOM BOX */
 
-function typeText(
-    element,
-    text,
-    speed,
-    callback
-) {
+function typeText(text, callback) {
+    const prompt = document.getElementById("promptText");
+    prompt.textContent = "";
 
-    let index = 0;
+    let i = 0;
 
-    function type() {
+    const interval = setInterval(() => {
+        prompt.textContent += text[i];
+        i++;
 
-        if (index < text.length) {
+        if (i >= text.length) {
+            clearInterval(interval);
 
-            element.textContent +=
-                text.charAt(index);
-
-            index++;
-
-            autoScroll();
-
-            setTimeout(
-                type,
-                speed
-            );
-
-        }
-
-        else {
-
-            if (callback) {
-
+            setTimeout(() => {
                 callback();
-
-            }
-
+            }, 500);
         }
-
-    }
-
-    type();
+    }, 22);
 }
 
 
-/* =====================================================
-   AUTO SCROLL
-===================================================== */
+/* AUTO SCROLL */
 
 function autoScroll() {
+    const container = document.getElementById("chatContainer");
 
-    const chat =
-        document.getElementById("chat");
-
-    chat.scrollTo({
-
-        top: chat.scrollHeight,
-
+    container.scrollTo({
+        top: container.scrollHeight,
         behavior: "smooth"
-
     });
 }
 
 
-/* =====================================================
-   START QUESTION
-===================================================== */
+/* START QUESTION */
 
 function startQuestion(number) {
 
-    const prompt =
-        number === 1
-        ? question1
-        : question2;
+    const question = number === 1 ? question1 : question2;
+    const response = number === 1 ? response1 : response2;
 
-    const response =
-        number === 1
-        ? response1
-        : response2;
+    typeText(question, () => {
 
+        /* Clear bottom prompt */
+        document.getElementById("promptText").textContent = "";
 
-    const conversation =
-        document.getElementById(
-            "conversation"
-        );
+        /* USER MESSAGE */
+        const chat = document.getElementById("chat");
 
+        const userRow = document.createElement("div");
+        userRow.className = "user-row";
 
-    document.getElementById(
-        "typingText"
-    ).textContent = "";
+        const userMessage = document.createElement("div");
+        userMessage.className = "user-message";
+        userMessage.textContent = question;
 
-
-    document.getElementById(
-        "cursor"
-    ).style.display =
-        "inline-block";
-
-
-    document.getElementById(
-        "nextButton"
-    ).style.display =
-        "none";
-
-
-    /* TYPE USER PROMPT */
-
-    typeText(
-
-        document.getElementById(
-            "typingText"
-        ),
-
-        prompt.trim(),
-
-        promptTypingSpeed,
-
-        function() {
-
-            setTimeout(
-
-                function() {
-
-                    /* Fake send */
-
-                    const send =
-                        document.getElementById(
-                            "sendButton"
-                        );
-
-
-                    send.classList.add(
-                        "clicked"
-                    );
-
-
-                    setTimeout(
-
-                        function() {
-
-                            send.classList.remove(
-                                "clicked"
-                            );
-
-
-                            /* ADD USER MESSAGE */
-
-                            const user =
-                                document.createElement(
-                                    "div"
-                                );
-
-
-                            user.className =
-                                "user-message";
-
-
-                            user.innerHTML = `
-
-                                <div class="user-bubble">
-
-                                    ${escapeHTML(
-                                        prompt.trim()
-                                    )}
-
-                                </div>
-
-                            `;
-
-
-                            conversation.appendChild(
-                                user
-                            );
-
-
-                            /* CLEAR PROMPT */
-
-                            document.getElementById(
-                                "typingText"
-                            ).textContent = "";
-
-
-                            document.getElementById(
-                                "cursor"
-                            ).style.display =
-                                "none";
-
-
-                            autoScroll();
-
-
-                            /* WAIT */
-
-                            setTimeout(
-
-                                function() {
-
-                                    createFormattedResponse(
-                                        response,
-                                        number
-                                    );
-
-                                },
-
-                                pauseBeforeResponse
-
-                            );
-
-
-                        },
-
-                        180
-
-                    );
-
-                },
-
-                400
-
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   CREATE FORMATTED RESPONSE
-===================================================== */
-
-function createFormattedResponse(
-    html,
-    number
-) {
-
-    const conversation =
-        document.getElementById(
-            "conversation"
-        );
-
-
-    const assistant =
-        document.createElement(
-            "div"
-        );
-
-
-    assistant.className =
-        "assistant-message";
-
-
-    assistant.innerHTML = `
-
-        <img
-            src="chatgpt-logo.png"
-            class="assistant-logo"
-            alt="ChatGPT"
-        >
-
-        <div class="response">
-
-            <div class="formatted-response"></div>
-
-            <span
-                class="cursor response-cursor"
-            ></span>
-
-        </div>
-
-    `;
-
-
-    conversation.appendChild(
-        assistant
-    );
-
-
-    const container =
-        assistant.querySelector(
-            ".formatted-response"
-        );
-
-
-    const cursor =
-        assistant.querySelector(
-            ".response-cursor"
-        );
-
-
-    revealHTML(
-
-        container,
-
-        html,
-
-        function() {
-
-            cursor.style.display =
-                "none";
-
-
-            finishQuestion(
-                number
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   REVEAL RESPONSE
-===================================================== */
-
-function revealHTML(
-    container,
-    html,
-    callback
-) {
-
-    const temp =
-        document.createElement(
-            "div"
-        );
-
-
-    temp.innerHTML =
-        html;
-
-
-    const elements =
-        Array.from(
-            temp.childNodes
-        );
-
-
-    let index = 0;
-
-
-    function revealNext() {
-
-        if (
-            index >=
-            elements.length
-        ) {
-
-            if (callback) {
-
-                callback();
-
-            }
-
-            return;
-        }
-
-
-        const element =
-            elements[index];
-
-
-        const clone =
-            element.cloneNode(true);
-
-
-        container.appendChild(
-            clone
-        );
-
-
-        index++;
-
+        userRow.appendChild(userMessage);
+        chat.appendChild(userRow);
 
         autoScroll();
 
+        /* Fake sending delay */
+        setTimeout(() => {
 
-        /*
-           Timing controls how quickly
-           each section appears.
-        */
+            const assistantRow = document.createElement("div");
+            assistantRow.className = "assistant-row";
 
-        let delay = 220;
+            const logo = document.createElement("img");
+            logo.className = "assistant-logo";
+            logo.src = "chatgpt-logo.png";
 
+            const content = document.createElement("div");
+            content.className = "assistant-content";
 
-        if (
-            clone.nodeType === 1 &&
-            clone.tagName === "P"
-        ) {
+            assistantRow.appendChild(logo);
+            assistantRow.appendChild(content);
 
-            delay = 500;
+            chat.appendChild(assistantRow);
 
-        }
+            createFormattedResponse(response, number);
 
-
-        if (
-            clone.nodeType === 1 &&
-            (
-                clone.tagName === "H1" ||
-                clone.tagName === "H2" ||
-                clone.tagName === "H3"
-            )
-        ) {
-
-            delay = 450;
-
-        }
-
-
-        if (
-            clone.nodeType === 1 &&
-            (
-                clone.tagName === "UL" ||
-                clone.tagName === "OL"
-            )
-        ) {
-
-            delay = 500;
-
-        }
-
-
-        if (
-            clone.nodeType === 1 &&
-            (
-                clone.tagName === "TABLE" ||
-                (
-                    clone.querySelector &&
-                    clone.querySelector("table")
-                )
-            )
-        ) {
-
-            delay = 700;
-
-        }
-
-
-        setTimeout(
-            revealNext,
-            delay
-        );
-
-    }
-
-
-    revealNext();
-
+        }, 700);
+    });
 }
 
 
-/* =====================================================
-   FINISH QUESTION
-===================================================== */
+/* CREATE RESPONSE */
+
+function createFormattedResponse(html, number) {
+
+    const assistantContent =
+        document.querySelector(
+            "#chat .assistant-row:last-child .assistant-content"
+        );
+
+    revealHTML(
+        assistantContent,
+        html,
+        () => finishQuestion(number)
+    );
+}
+
+
+/* REVEAL HTML */
+
+function revealHTML(container, html, callback) {
+
+    /*
+       Break response into HTML blocks.
+
+       Tables are treated as complete units so that
+       they render properly instead of being typed
+       character-by-character.
+    */
+
+    const temp = document.createElement("div");
+    temp.innerHTML = html;
+
+    const blocks = Array.from(temp.children);
+
+    let index = 0;
+
+    function showNextBlock() {
+
+        if (index >= blocks.length) {
+
+            const cursor =
+                container.querySelector(".cursor");
+
+            if (cursor) {
+                cursor.remove();
+            }
+
+            callback();
+            return;
+        }
+
+        const block = blocks[index];
+
+        /*
+           Tables and large sections appear as complete
+           formatted blocks.
+        */
+
+        const clone = block.cloneNode(true);
+
+        container.appendChild(clone);
+
+        index++;
+
+        autoScroll();
+
+        let delay = 90;
+
+        if (
+            block.tagName === "TABLE" ||
+            block.querySelector("table")
+        ) {
+            delay = 350;
+        }
+
+        if (
+            block.tagName === "UL" ||
+            block.tagName === "OL"
+        ) {
+            delay = 220;
+        }
+
+        if (
+            block.tagName === "H2" ||
+            block.tagName === "H3"
+        ) {
+            delay = 180;
+        }
+
+        setTimeout(showNextBlock, delay);
+    }
+
+    showNextBlock();
+}
+
+
+/* FINISH QUESTION */
 
 function finishQuestion(number) {
 
     if (number === 1) {
 
-        setTimeout(
+        const chat = document.getElementById("chat");
 
-            function() {
+        const button = document.createElement("button");
+        button.className = "continue-button";
+        button.textContent = "Continue";
 
-                document.getElementById(
-                    "nextButton"
-                ).style.display =
-                    "block";
+        button.onclick = () => {
+            button.remove();
+            currentQuestion = 2;
+            startQuestion(2);
+        };
 
-            },
+        chat.appendChild(button);
 
-            500
-
-        );
-
+        autoScroll();
     }
-
-
-    if (number === 2) {
-
-        console.log(
-            "Demo complete."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   ESCAPE USER TEXT
-===================================================== */
-
-function escapeHTML(text) {
-
-    return text
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
 }
 
 </script>
