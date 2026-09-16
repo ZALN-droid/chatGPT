@@ -43,7 +43,7 @@
 
     /* CHAT AREA */
     .chat-container {
-        height: calc(100vh - 60px);
+        height: 100vh;
         overflow-y: auto;
         padding-bottom: 150px;
     }
@@ -62,7 +62,8 @@
     }
 
     .user-message {
-        background: #404040;
+        background: #d6b84c;
+        color: #202020;
         padding: 13px 18px;
         border-radius: 18px;
         max-width: 75%;
@@ -189,7 +190,7 @@
         max-width: 850px;
         margin: 0 auto;
         min-height: 58px;
-        background: #d6b84c;
+        background: #404040;
         border-radius: 28px;
         display: flex;
         align-items: center;
@@ -199,7 +200,7 @@
 
     .plus {
         font-size: 28px;
-        color: #202020;
+        color: #ececec;
         width: 35px;
         flex-shrink: 0;
         line-height: 1;
@@ -207,7 +208,7 @@
 
     .prompt-text {
         flex: 1;
-        color: #202020;
+        color: #ececec;
         font-size: 15px;
         min-height: 25px;
         display: flex;
@@ -273,7 +274,6 @@
         display: none !important;
     }
 
-    /* Slightly smaller tables on smaller screens */
     @media (max-width: 700px) {
         .chat {
             padding: 20px 14px;
@@ -412,8 +412,7 @@ const response1 = `
 
 <p>One important scientific issue is dopamine itself. Dopamine is readily metabolized and has limited ability to cross the blood-brain barrier, which is one reason the nose-to-brain route is being investigated. Encapsulation does not automatically demonstrate brain delivery, so an effective study needs pharmacokinetic and brain-distribution evidence rather than relying only on nanoparticle characterization.</p>
 
-<p>If this is for a pharmaceutical sciences research project, I can also lay out a complete QbD-style formulation development plan, including the independent variables, responses, characterization tests, experimental design, and an example formulation-development table, without presenting it as a clinically usable preparation.</p>
-`;
+;
 
 
 /* =========================================================
@@ -421,12 +420,7 @@ const response1 = `
    ========================================================= */
 
 const question2 =
-`For a Quality by Design (QbD) approach to the development of an intranasal dopamine hydrochloride-loaded chitosan nanosystem intended for Parkinson's disease (PD), the Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) should be linked to the established CQAs (particle size, zeta potential, release profile, and stability).`;
-
-
-/* =========================================================
-   RESPONSE 2
-   ========================================================= */
+"Development of an intranasal levodopa nanosystem for the treatment of PD\n\nBelow are established QTPPs and CQAs for a chitosan intranasal levodopa nanosystem.\n\nQTPPs\n· Dosage form: nasal sprayed suspension\n· Route of administration: Direct intranasal administration\n· Drug product quality attributes (particle size, zeta potential, release kinetics and stability)\n· Content uniformity: Uniform dispersion\n· Microbial limit: As per the ICH guidelines\n· Stability: As per the ICH guidelines\n\nCQAs\n· Particle size range: 100 nm – 200 nm\n· Zeta potential: ±10 – ±30 mV\n· Release profile: Immediate release\n· Formulation stability\n\nConsidering the aforementioned QTPP and CQAs, generate CMAs and CPPs based on these elements in a tabulated form.\nCMAs\n· API concentration\n· Polymer concentration\n· Molecular weight of polymer\n· Cross-linking agent\n· Surfactant\nCPPs\n· Manufacturing method\n· Stirrer type\n· Centrifuge speed\n· Centrifuge time\n· Temperature\nOnce CMAs and CPPs are tabulated, generate an entire final formulation based on these QBD elements.";
 
 const response2 = `
 <p>For a <strong>Quality by Design (QbD)</strong> approach to the development of an <strong>intranasal dopamine hydrochloride-loaded chitosan nanosystem</strong> intended for Parkinson's disease (PD), the Critical Material Attributes (CMAs) and Critical Process Parameters (CPPs) should be linked to the established CQAs (particle size, zeta potential, release profile, and stability).</p>
@@ -444,74 +438,63 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td><strong>Dopamine hydrochloride concentration</strong></td>
 <td>0.5–2.0 mg/mL</td>
 <td>Influences drug loading, release rate, and formulation stability</td>
 <td>Particle size, release profile, stability</td>
 </tr>
-
 <tr>
 <td><strong>Chitosan concentration</strong></td>
 <td>0.1–0.5% w/v</td>
 <td>Determines nanoparticle formation, mucoadhesion, viscosity, and drug entrapment</td>
 <td>Particle size, zeta potential, release profile</td>
 </tr>
-
 <tr>
 <td><strong>Molecular weight of chitosan</strong></td>
 <td>Medium MW (100–300 kDa)</td>
 <td>Provides adequate nanoparticle stability and nasal residence time</td>
 <td>Particle size, zeta potential, stability</td>
 </tr>
-
 <tr>
 <td><strong>Degree of deacetylation of chitosan</strong></td>
 <td>75–90%</td>
 <td>Affects positive charge density and mucoadhesive properties</td>
 <td>Zeta potential, stability</td>
 </tr>
-
 <tr>
 <td><strong>Cross-linking agent (TPP)</strong></td>
 <td>0.05–0.20% w/v</td>
 <td>Controls nanoparticle formation through ionic gelation</td>
 <td>Particle size, stability</td>
 </tr>
-
 <tr>
 <td><strong>Chitosan:TPP ratio</strong></td>
 <td>3:1 – 6:1</td>
 <td>Governs nanoparticle size and surface charge</td>
 <td>Particle size, zeta potential</td>
 </tr>
-
 <tr>
 <td><strong>Poloxamer 188 concentration</strong></td>
 <td>0.1–0.5% w/v</td>
 <td>Stabilizes nanosuspension and prevents aggregation</td>
 <td>Particle size, stability</td>
 </tr>
-
 <tr>
 <td><strong>Purified water quality</strong></td>
 <td>USP/Ph. Eur. grade</td>
 <td>Prevents contamination and ensures reproducibility</td>
 <td>Stability</td>
 </tr>
-
 <tr>
 <td><strong>pH of formulation</strong></td>
 <td>5.0–6.0</td>
 <td>Maintains dopamine stability and nasal compatibility</td>
 <td>Stability, release profile</td>
 </tr>
-
 </tbody>
 </table>
 </div>
-
 
 <h2>2. Critical Process Parameters (CPPs)</h2>
 
@@ -526,81 +509,69 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td><strong>Manufacturing method</strong></td>
 <td>Ionic gelation</td>
 <td>Mild process suitable for dopamine and chitosan nanoparticles</td>
 <td>All CQAs</td>
 </tr>
-
 <tr>
 <td><strong>Stirrer type</strong></td>
 <td>Overhead mechanical stirrer or magnetic stirrer</td>
 <td>Ensures uniform mixing and nanoparticle formation</td>
 <td>Particle size, uniformity</td>
 </tr>
-
 <tr>
 <td><strong>Stirring speed during TPP addition</strong></td>
 <td>800–1200 rpm</td>
 <td>Controls nucleation and particle growth</td>
 <td>Particle size, zeta potential</td>
 </tr>
-
 <tr>
 <td><strong>TPP addition rate</strong></td>
 <td>0.5–1.0 mL/min</td>
 <td>Prevents uncontrolled aggregation</td>
 <td>Particle size, stability</td>
 </tr>
-
 <tr>
 <td><strong>Mixing time after TPP addition</strong></td>
 <td>30–60 min</td>
 <td>Ensures complete crosslinking</td>
 <td>Stability, particle size</td>
 </tr>
-
 <tr>
 <td><strong>Centrifuge speed</strong></td>
 <td>12,000–18,000 rpm</td>
 <td>Efficient nanoparticle recovery</td>
 <td>Particle size, stability</td>
 </tr>
-
 <tr>
 <td><strong>Centrifuge time</strong></td>
 <td>20–40 min</td>
 <td>Ensures complete separation without aggregation</td>
 <td>Stability</td>
 </tr>
-
 <tr>
 <td><strong>Process temperature</strong></td>
 <td>20–25°C</td>
 <td>Minimizes dopamine degradation and maintains reproducibility</td>
 <td>Stability</td>
 </tr>
-
 <tr>
 <td><strong>Homogenization (optional)</strong></td>
 <td>5,000–10,000 rpm for 5 min</td>
 <td>Improves dispersion uniformity</td>
 <td>Particle size</td>
 </tr>
-
 <tr>
 <td><strong>Final pH adjustment</strong></td>
 <td>5.5 ± 0.2</td>
 <td>Optimizes nasal tolerance and dopamine stability</td>
 <td>Stability</td>
 </tr>
-
 </tbody>
 </table>
 </div>
-
 
 <h2>QbD-Based Final Formulation</h2>
 
@@ -615,41 +586,33 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td>Dosage form</td>
 <td>Intranasal sprayed nanosuspension</td>
 </tr>
-
 <tr>
 <td>Particle size</td>
 <td>100–200 nm</td>
 </tr>
-
 <tr>
 <td>Zeta potential</td>
 <td>+15 to +25 mV</td>
 </tr>
-
 <tr>
 <td>Drug release</td>
 <td>Immediate release (&gt;80% within 30 min)</td>
 </tr>
-
 <tr>
 <td>Stability</td>
 <td>≥ 6 months accelerated stability</td>
 </tr>
-
 <tr>
 <td>Administration</td>
 <td>Intranasal spray</td>
 </tr>
-
 </tbody>
 </table>
 </div>
-
 
 <h3>Optimized Final Formula (100 mL Batch)</h3>
 
@@ -663,53 +626,44 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td><strong>Dopamine hydrochloride</strong></td>
 <td>Active pharmaceutical ingredient</td>
 <td>100 mg (1 mg/mL)</td>
 </tr>
-
 <tr>
 <td><strong>Chitosan (medium MW, 85% DDA)</strong></td>
 <td>Mucoadhesive polymer</td>
 <td>300 mg (0.3% w/v)</td>
 </tr>
-
 <tr>
 <td><strong>Sodium tripolyphosphate (TPP)</strong></td>
 <td>Cross-linking agent</td>
 <td>75 mg (0.075% w/v)</td>
 </tr>
-
 <tr>
 <td><strong>Poloxamer 188</strong></td>
 <td>Stabilizer/surfactant</td>
 <td>200 mg (0.2% w/v)</td>
 </tr>
-
 <tr>
 <td><strong>Acetic acid (1% solution)</strong></td>
 <td>Chitosan solvent</td>
 <td>q.s.</td>
 </tr>
-
 <tr>
 <td><strong>Sodium hydroxide/HCl</strong></td>
 <td>pH adjustment</td>
 <td>q.s.</td>
 </tr>
-
 <tr>
 <td><strong>Purified water</strong></td>
 <td>Vehicle</td>
 <td>q.s. to 100 mL</td>
 </tr>
-
 </tbody>
 </table>
 </div>
-
 
 <h3>Critical Formulation Ratios</h3>
 
@@ -722,31 +676,25 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td>Chitosan:TPP ratio</td>
 <td>4:1</td>
 </tr>
-
 <tr>
 <td>Drug:polymer ratio</td>
 <td>1:3</td>
 </tr>
-
 <tr>
 <td>pH</td>
 <td>5.5 ± 0.2</td>
 </tr>
-
 <tr>
 <td>Viscosity</td>
 <td>Suitable for nasal spraying (&lt;100 cP)</td>
 </tr>
-
 </tbody>
 </table>
 </div>
-
 
 <h3>Optimized Manufacturing Process</h3>
 
@@ -794,7 +742,6 @@ const response2 = `
 <li>Fill into sterile nasal spray containers.</li>
 </ul>
 
-
 <h3>Expected Product Performance</h3>
 
 <div class="table-wrapper">
@@ -806,47 +753,38 @@ const response2 = `
 </tr>
 </thead>
 <tbody>
-
 <tr>
 <td>Particle size</td>
 <td>120–180 nm</td>
 </tr>
-
 <tr>
 <td>PDI</td>
 <td>&lt;0.30</td>
 </tr>
-
 <tr>
 <td>Zeta potential</td>
 <td>+18 to +25 mV</td>
 </tr>
-
 <tr>
 <td>Entrapment efficiency</td>
 <td>70–85%</td>
 </tr>
-
 <tr>
 <td>Drug content</td>
 <td>95–105%</td>
 </tr>
-
 <tr>
 <td>Release profile</td>
 <td>&gt;80% release within 30 min</td>
 </tr>
-
 <tr>
 <td>Physical stability</td>
 <td>No aggregation for ≥6 months</td>
 </tr>
-
 <tr>
 <td>Microbial limits</td>
 <td>Complies with ICH/Ph. Eur./USP requirements</td>
 </tr>
-
 </tbody>
 </table>
 </div>
@@ -858,8 +796,6 @@ const response2 = `
 /* =========================================================
    DEMO FUNCTIONS
    ========================================================= */
-
-let currentQuestion = 1;
 
 function startDemo() {
     document.getElementById("startScreen").classList.add("hidden");
@@ -911,10 +847,8 @@ function startQuestion(number) {
 
     typeText(question, () => {
 
-        /* Clear bottom prompt */
         document.getElementById("promptText").textContent = "";
 
-        /* USER MESSAGE */
         const chat = document.getElementById("chat");
 
         const userRow = document.createElement("div");
@@ -929,7 +863,6 @@ function startQuestion(number) {
 
         autoScroll();
 
-        /* Fake sending delay */
         setTimeout(() => {
 
             const assistantRow = document.createElement("div");
@@ -975,14 +908,6 @@ function createFormattedResponse(html, number) {
 
 function revealHTML(container, html, callback) {
 
-    /*
-       Break response into HTML blocks.
-
-       Tables are treated as complete units so that
-       they render properly instead of being typed
-       character-by-character.
-    */
-
     const temp = document.createElement("div");
     temp.innerHTML = html;
 
@@ -993,25 +918,11 @@ function revealHTML(container, html, callback) {
     function showNextBlock() {
 
         if (index >= blocks.length) {
-
-            const cursor =
-                container.querySelector(".cursor");
-
-            if (cursor) {
-                cursor.remove();
-            }
-
             callback();
             return;
         }
 
         const block = blocks[index];
-
-        /*
-           Tables and large sections appear as complete
-           formatted blocks.
-        */
-
         const clone = block.cloneNode(true);
 
         container.appendChild(clone);
@@ -1022,24 +933,15 @@ function revealHTML(container, html, callback) {
 
         let delay = 90;
 
-        if (
-            block.tagName === "TABLE" ||
-            block.querySelector("table")
-        ) {
+        if (block.tagName === "TABLE") {
             delay = 350;
         }
 
-        if (
-            block.tagName === "UL" ||
-            block.tagName === "OL"
-        ) {
+        if (block.tagName === "UL" || block.tagName === "OL") {
             delay = 220;
         }
 
-        if (
-            block.tagName === "H2" ||
-            block.tagName === "H3"
-        ) {
+        if (block.tagName === "H2" || block.tagName === "H3") {
             delay = 180;
         }
 
@@ -1064,7 +966,6 @@ function finishQuestion(number) {
 
         button.onclick = () => {
             button.remove();
-            currentQuestion = 2;
             startQuestion(2);
         };
 
